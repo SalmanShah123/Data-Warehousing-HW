@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project name="HW-motor-vehicle-DM" id="LogicalDesign-41c" database="LogicalDesign" >
+	<schema name="INSTANCE" catalogname="HW-motor-vehicle-DM" >
+		<table name="dim-contributing-factor" prior="Entity" >
+			<column name="contributing-factor-id" type="BIGINT" jt="-5" mandatory="y" />
+			<column name="contributing-factor-1" type="VARCHAR" length="255" jt="12" />
+			<column name="contributing-factor-2" type="VARCHAR" length="255" jt="12" />
+			<index name="pk_dim-contributing-factor" unique="PRIMARY_KEY" >
+				<column name="contributing-factor-id" />
+			</index>
+			<fk name="fk_dim-contributing-factor_facts-motor-accidents" virtual="y" to_schema="HW-motor-vehicle-DM.INSTANCE" to_table="facts-motor-accidents" type="NonIdentifying" mandatory="n" cardinality="OneMore" range_from="0" range_to="0" >
+				<fk_column name="contributing-factor-id" pk="contributing-factor-id" />
+			</fk>
+		</table>
+		<table name="dim-date" prior="Entity" >
+			<column name="date-id" type="BIGINT" jt="-5" mandatory="y" />
+			<column name="crash-date" type="DATE" jt="91" />
+			<column name="crash-time" type="DATETIME" jt="93" />
+			<column name="hour" type="INT" jt="4" />
+			<column name="am/pm-flag" type="VARCHAR" length="5" jt="12" />
+			<column name="time-of-day-bucket" type="VARCHAR" length="255" jt="12" />
+			<column name="date-original-format" type="DATE" jt="91" />
+			<column name="date-iso-format" type="DATE" jt="91" />
+			<column name="year" type="INT" jt="4" />
+			<column name="quarter" type="INT" jt="4" />
+			<column name="month" type="INT" jt="4" />
+			<column name="day-number" type="INT" jt="4" />
+			<column name="month-name" type="VARCHAR" length="100" jt="12" />
+			<column name="day-name" type="VARCHAR" length="100" jt="12" />
+			<column name="week-of-the-year" type="INT" jt="4" />
+			<column name="week-of-the-month" type="INT" jt="4" />
+			<index name="pk_dim-date" unique="PRIMARY_KEY" >
+				<column name="date-id" />
+			</index>
+			<fk name="fk_dim-date_facts-motor-accidents" virtual="y" to_schema="HW-motor-vehicle-DM.INSTANCE" to_table="facts-motor-accidents" type="NonIdentifying" mandatory="n" cardinality="OneMore" range_from="0" range_to="0" >
+				<fk_column name="date-id" pk="date-id" />
+			</fk>
+		</table>
+		<table name="dim-location" prior="Entity" >
+			<column name="location-id" type="BIGINT" jt="-5" mandatory="y" />
+			<column name="latitude" type="DOUBLE" jt="8" />
+			<column name="longitude" type="DOUBLE" jt="8" />
+			<column name="location co-ordinates" type="DOUBLE" jt="8" />
+			<column name="zipcode" type="VARCHAR" length="50" jt="12" />
+			<column name="on-street-name" type="VARCHAR" length="255" jt="12" />
+			<column name="cross-street-name" type="VARCHAR" length="255" jt="12" />
+			<column name="off-street-name" type="VARCHAR" length="255" jt="12" />
+			<column name="borough" type="VARCHAR" length="255" jt="12" />
+			<column name="neighbourhood" type="VARCHAR" length="355" jt="12" />
+			<index name="pk_dim-location" unique="PRIMARY_KEY" >
+				<column name="location-id" />
+			</index>
+			<fk name="fk_dim-location_facts-motor-accidents" virtual="y" to_schema="HW-motor-vehicle-DM.INSTANCE" to_table="facts-motor-accidents" type="NonIdentifying" mandatory="n" cardinality="OneMore" range_from="0" range_to="0" >
+				<fk_column name="location-id" pk="location-id" />
+			</fk>
+		</table>
+		<table name="dim-vehicle" prior="Entity" >
+			<column name="vehicle-id" type="BIGINT" jt="-5" mandatory="y" />
+			<column name="vehicle-type-code-1" type="VARCHAR" length="255" jt="12" />
+			<column name="vehicle-type-code-2" type="VARCHAR" length="255" jt="12" />
+			<index name="pk_dim-vehicle" unique="PRIMARY_KEY" >
+				<column name="vehicle-id" />
+			</index>
+			<fk name="fk_dim-vehicle_facts-motor-accidents" virtual="y" to_schema="HW-motor-vehicle-DM.INSTANCE" to_table="facts-motor-accidents" type="NonIdentifying" mandatory="n" cardinality="OneMore" range_from="0" range_to="0" >
+				<fk_column name="vehicle-id" pk="vehicle-id" />
+			</fk>
+		</table>
+		<table name="facts-motor-accidents" prior="facts-motor-vehicle" >
+			<column name="collision-id" type="BIGINT" jt="-5" mandatory="y" />
+			<column name="number-of-persons-killed" type="INT" jt="4" />
+			<column name="number-of-pedestrians-killed" type="INT" jt="4" />
+			<column name="number-of-cyclists-killed" type="INT" jt="4" />
+			<column name="number-of-motorists-killed" type="INT" jt="4" />
+			<column name="number-of-persons-injured" type="INT" jt="4" />
+			<column name="number-of-pedestrians-injured" type="INT" jt="4" />
+			<column name="number-of-cyclists-injured" type="INT" jt="4" />
+			<column name="number-of-motorists-injured" type="INT" jt="4" />
+			<column name="vehicle-id" type="INT" jt="4" />
+			<column name="location-id" type="INT" jt="4" />
+			<column name="date-id" type="INT" jt="4" />
+			<column name="contributing-factor-id" type="INT" jt="4" />
+			<index name="pk_facts-motor-accidents" unique="PRIMARY_KEY" >
+				<column name="collision-id" />
+			</index>
+			<index name="unq_date-id" unique="UNIQUE_INDEX" >
+				<column name="date-id" />
+			</index>
+			<index name="unq_location-id" unique="UNIQUE_INDEX" >
+				<column name="location-id" />
+			</index>
+			<index name="unq_vehicle-id" unique="UNIQUE_INDEX" >
+				<column name="vehicle-id" />
+			</index>
+			<index name="unq_contributing-factor-id" unique="UNIQUE_INDEX" >
+				<column name="contributing-factor-id" />
+			</index>
+		</table>
+	</schema>
+	<layout name="Default Layout" id="Layout-26cb" show_relation="columns" >
+		<entity schema="HW-motor-vehicle-DM.INSTANCE" name="dim-contributing-factor" color="C1D8EE" x="480" y="48" />
+		<entity schema="HW-motor-vehicle-DM.INSTANCE" name="dim-date" color="C1D8EE" x="816" y="256" />
+		<entity schema="HW-motor-vehicle-DM.INSTANCE" name="dim-location" color="C1D8EE" x="48" y="272" />
+		<entity schema="HW-motor-vehicle-DM.INSTANCE" name="dim-vehicle" color="C1D8EE" x="432" y="576" />
+		<entity schema="HW-motor-vehicle-DM.INSTANCE" name="facts-motor-accidents" color="C1D8EE" x="368" y="240" />
+	</layout>
+</project>
