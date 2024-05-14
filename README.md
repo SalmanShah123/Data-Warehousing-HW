@@ -15,4 +15,4 @@ Data Source: https://catalog.data.gov/dataset/motor-vehicle-collisions-crashes
 
 5) HW_MVCrashes_ETL: This file contains the Python code used to extract the dataset stored in the cloud, run major transformations, and create the facts & dimension tables, then load the data into the Data Warehouse hosted on Azure.
 
-6) HW-DW-Analysis: PowerBI file which is connected to my DW and contains a 5-page report with different visuals analyzing and serving the data
+6) HW-Visuals: PowerBI file which is connected to my DW and contains a 6-page report with different visuals analyzing and serving the data
